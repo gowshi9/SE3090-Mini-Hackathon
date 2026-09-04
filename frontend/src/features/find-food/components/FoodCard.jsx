@@ -90,18 +90,15 @@ export function FoodCard({ item }) {
 
       {/* Action */}
       <div className="p-4 bg-slate-50 border-t border-slate-100">
-        {isAvailable ? (
-          <Link to={`/reserve/${item.id}`} className="block">
-            <Button variant="primary" className="w-full py-2">
-              Reserve Food
-            </Button>
-          </Link>
-        ) : (
-          <Button variant="outline" disabled className="w-full py-2">
-            Not Available
+        <Link to={`/food/${item.id}`} className="block">
+          <Button
+            variant="primary"
+            className="w-full py-2"
+          >
+            View Details
           </Button>
-        )}
-      </div>
+        </Link>
+     </div>
     </article>
   );
 }
