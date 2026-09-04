@@ -11,19 +11,24 @@ const categoryFilterOptions = [
 ];
 
 const statusFilterOptions = [
-  { value: '', label: 'All Statuses' },
   { value: 'Available', label: 'Available Only' },
   { value: 'Reserved', label: 'Reserved' },
+  { value: '', label: 'All Statuses' },
 ];
 
-/**
- * Filter panel component for category and location selection.
- */
 export function FoodFilters({ filters, updateFilter, resetFilters }) {
   return (
-    <div className="flex flex-wrap items-center gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-sm w-full">
+    <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-sm w-full">
       <div className="w-full sm:w-48">
+        <label
+          htmlFor="food-category"
+          className="block text-xs font-semibold text-slate-600 mb-1"
+        >
+          Category
+        </label>
+
         <Select
+          id="food-category"
           options={categoryFilterOptions}
           value={filters.category}
           onChange={(e) => updateFilter('category', e.target.value)}
@@ -31,14 +36,26 @@ export function FoodFilters({ filters, updateFilter, resetFilters }) {
       </div>
 
       <div className="w-full sm:w-44">
+        <label
+          htmlFor="food-status"
+          className="block text-xs font-semibold text-slate-600 mb-1"
+        >
+          Status
+        </label>
+
         <Select
+          id="food-status"
           options={statusFilterOptions}
           value={filters.status}
           onChange={(e) => updateFilter('status', e.target.value)}
         />
       </div>
 
-      <Button variant="outline" onClick={resetFilters} className="ml-auto text-xs py-2">
+      <Button
+        variant="outline"
+        onClick={resetFilters}
+        className="sm:ml-auto text-xs py-2"
+      >
         Reset Filters
       </Button>
     </div>

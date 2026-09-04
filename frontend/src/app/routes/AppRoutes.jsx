@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { FindFoodPage } from '../../features/find-food/pages/FindFoodPage';
+import { FoodDetailsPage } from '../../features/find-food/pages/FoodDetailsPage';
 import { PostFoodPage } from '../../features/post-food/pages/PostFoodPage';
 import { MyListingsPage } from '../../features/post-food/pages/MyListingsPage';
 import { EditFoodPage } from '../../features/post-food/pages/EditFoodPage';
