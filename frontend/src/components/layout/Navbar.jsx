@@ -12,6 +12,9 @@ export function Navbar() {
     { label: 'Find Food', path: '/' },
     { label: 'Post Surplus Food', path: '/post-food' },
     { label: 'My Dashboard', path: '/dashboard' },
+    { label: 'Collection', path: '/collection' },
+    { label: 'Impact', path: '/impact' },
+    { label: 'Admin Portal', path: '/admin' },
   ];
 
   return (
