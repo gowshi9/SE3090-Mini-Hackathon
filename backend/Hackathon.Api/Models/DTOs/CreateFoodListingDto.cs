@@ -11,5 +11,6 @@ namespace Hackathon.Api.Models.DTOs
         public DateTime ExpiryDate { get; set; }
         public string DonorName { get; set; } = string.Empty;
         public string DonorContact { get; set; } = string.Empty;
+        public string? ImageUrl { get; set; }
     }
 }
