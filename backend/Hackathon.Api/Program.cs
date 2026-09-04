@@ -38,6 +38,13 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Seed initial database items
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    DbInitializer.Seed(dbContext);
+}
+
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
