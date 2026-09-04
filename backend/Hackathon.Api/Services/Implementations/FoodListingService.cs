@@ -52,7 +52,25 @@ namespace Hackathon.Api.Services.Implementations
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null) return false;
 
-            entity.Status = status;
+            string normalizedTarget = status.Trim();
+            string currentStatus = entity.Status.Trim();
+
+            // Validate status transitions for M4 Collection rule: AVAILABLE -> RESERVED -> COLLECTED
+            if (normalizedTarget.Equals("Collected", StringComparison.OrdinalIgnoreCase) || 
+                normalizedTarget.Equals("Completed", StringComparison.OrdinalIgnoreCase))
+            {
+                if (currentStatus.Equals("Available", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new InvalidOperationException("An available listing must be reserved before it can be collected.");
+                }
+                if (currentStatus.Equals("Collected", StringComparison.OrdinalIgnoreCase) || 
+                    currentStatus.Equals("Completed", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new InvalidOperationException("This food listing has already been collected.");
+                }
+            }
+
+            entity.Status = normalizedTarget;
             await _repository.UpdateAsync(entity);
             return true;
         }
