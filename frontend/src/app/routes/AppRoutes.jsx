@@ -7,8 +7,7 @@ import { MyListingsPage } from '../../features/post-food/pages/MyListingsPage';
 import { EditFoodPage } from '../../features/post-food/pages/EditFoodPage';
 import { ReservationPage } from '../../features/reservation/pages/ReservationPage';
 import { DashboardPage } from '../../features/dashboard/pages/DashboardPage';
-import { LoginPage } from '../../features/auth/pages/LoginPage';
-import { RegisterPage } from '../../features/auth/pages/RegisterPage';
+
 
 /**
  * Main Application Routing Configuration.
@@ -23,9 +22,7 @@ export function AppRoutes() {
       <Route path="/edit-food/:id" element={<EditFoodPage />} />
       <Route path="/reserve/:id" element={<ReservationPage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="*" element={<Navigate to="/my-listings" replace />} />
+
     </Routes>
   );
 }

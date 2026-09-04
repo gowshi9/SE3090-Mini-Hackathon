@@ -91,8 +91,7 @@ namespace Hackathon.Api.Services.Implementations
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null) return false;
 
-            entity.Status = status;
-            entity.UpdatedAt = DateTime.UtcNow;
+
             await _repository.UpdateAsync(entity);
             return true;
         }

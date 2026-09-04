@@ -12,13 +12,7 @@ export function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
 
   const navItems = [
-    { label: 'Home', path: '/' },
-    { label: 'Browse Food', path: '/#browse' },
-    { label: 'Post Food', path: '/post-food' },
-    { label: 'My Listings', path: '/my-listings' },
-    { label: 'My Reservations', path: '/reserve/1' },
-    { label: 'Collection', path: '/#collection' },
-    { label: 'Impact', path: '/dashboard' },
+
   ];
 
   return (

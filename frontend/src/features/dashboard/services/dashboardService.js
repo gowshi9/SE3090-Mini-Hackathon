@@ -9,7 +9,25 @@ export async function getDashboardStats() {
 }
 
 /**
- * Updates food listing status.
+ * Fetches all food listings.
+ * @param {string} [status]
+ * @returns {Promise<any>}
+ */
+export async function getAllFoodListings(status) {
+  const query = status ? `?status=${encodeURIComponent(status)}` : '';
+  return apiClient(`/foodlistings${query}`);
+}
+
+/**
+ * Fetches all reservations.
+ * @returns {Promise<any>}
+ */
+export async function getReservations() {
+  return apiClient('/reservations');
+}
+
+/**
+ * Updates food listing status (e.g. RESERVED -> COLLECTED).
  * @param {number|string} id
  * @param {string} status
  * @returns {Promise<any>}
@@ -20,3 +38,4 @@ export async function updateFoodStatus(id, status) {
     body: JSON.stringify({ status }),
   });
 }
+
