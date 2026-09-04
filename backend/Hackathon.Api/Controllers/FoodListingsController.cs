@@ -16,15 +16,16 @@ namespace Hackathon.Api.Controllers
         }
 
         /// <summary>
-        /// Gets all food listings with optional query, category, and status filtering. (Member 2)
+        /// Gets all food listings with optional query, category, location, and status filtering. (Member 2)
         /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FoodListingDto>>> GetAll(
             [FromQuery] string? query,
             [FromQuery] string? category,
+            [FromQuery] string? location,
             [FromQuery] string? status)
         {
-            var results = await _foodListingService.GetAllAsync(query, category, status);
+            var results = await _foodListingService.GetAllAsync(query, category, location, status);
             return Ok(results);
         }
 

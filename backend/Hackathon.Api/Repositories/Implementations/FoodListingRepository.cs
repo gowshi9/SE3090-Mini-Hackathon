@@ -14,7 +14,7 @@ namespace Hackathon.Api.Repositories.Implementations
             _context = context;
         }
 
-        public async Task<IEnumerable<FoodListing>> GetAllAsync(string? query = null, string? category = null, string? status = null)
+        public async Task<IEnumerable<FoodListing>> GetAllAsync(string? query = null, string? category = null, string? location = null, string? status = null)
         {
             var dbQuery = _context.FoodListings.AsQueryable();
 
@@ -26,6 +26,11 @@ namespace Hackathon.Api.Repositories.Implementations
             if (!string.IsNullOrWhiteSpace(category))
             {
                 dbQuery = dbQuery.Where(x => x.Category == category);
+            }
+
+            if (!string.IsNullOrWhiteSpace(location))
+            {
+                dbQuery = dbQuery.Where(x => x.PickupLocation.Contains(location));
             }
 
             if (!string.IsNullOrWhiteSpace(status))

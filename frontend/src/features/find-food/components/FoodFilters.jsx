@@ -1,5 +1,6 @@
 import React from 'react';
 import { Select } from '../../../components/ui/Select';
+import { Input } from '../../../components/ui/Input';
 import { Button } from '../../../components/ui/Button';
 
 const categoryFilterOptions = [
@@ -48,6 +49,23 @@ export function FoodFilters({ filters, updateFilter, resetFilters }) {
           options={statusFilterOptions}
           value={filters.status}
           onChange={(e) => updateFilter('status', e.target.value)}
+        />
+      </div>
+
+      <div className="w-full sm:w-52">
+        <label
+          htmlFor="food-location"
+          className="block text-xs font-semibold text-slate-600 mb-1"
+        >
+          Location
+        </label>
+
+        <Input
+          id="food-location"
+          type="search"
+          placeholder="Search pickup location"
+          value={filters.location}
+          onChange={(e) => updateFilter('location', e.target.value)}
         />
       </div>
 

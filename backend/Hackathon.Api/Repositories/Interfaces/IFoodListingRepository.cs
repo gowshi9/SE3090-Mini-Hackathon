@@ -4,7 +4,7 @@ namespace Hackathon.Api.Repositories.Interfaces
 {
     public interface IFoodListingRepository
     {
-        Task<IEnumerable<FoodListing>> GetAllAsync(string? query = null, string? category = null, string? status = null);
+        Task<IEnumerable<FoodListing>> GetAllAsync(string? query = null, string? category = null, string? location = null, string? status = null);
         Task<FoodListing?> GetByIdAsync(int id);
         Task<FoodListing> AddAsync(FoodListing entity);
         Task UpdateAsync(FoodListing entity);

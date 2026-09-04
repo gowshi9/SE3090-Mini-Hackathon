@@ -24,7 +24,7 @@ namespace Hackathon.Api.Controllers
         public async Task<IActionResult> GetStats()
         {
             var stats = await _dashboardService.GetStatsAsync();
-            var listings = await _foodListingService.GetAllAsync(null, null, null);
+            var listings = await _foodListingService.GetAllAsync(null, null, null, null);
 
             return Ok(new
             {

@@ -14,9 +14,9 @@ namespace Hackathon.Api.Services.Implementations
             _repository = repository;
         }
 
-        public async Task<IEnumerable<FoodListingDto>> GetAllAsync(string? query, string? category, string? status)
+        public async Task<IEnumerable<FoodListingDto>> GetAllAsync(string? query, string? category, string? location, string? status)
         {
-            var entities = await _repository.GetAllAsync(query, category, status);
+            var entities = await _repository.GetAllAsync(query, category, location, status);
             return entities.Select(MapToDto);
         }
 
