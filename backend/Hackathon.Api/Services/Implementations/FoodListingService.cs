@@ -39,6 +39,7 @@ namespace Hackathon.Api.Services.Implementations
                 ExpiryDate = dto.ExpiryDate,
                 DonorName = dto.DonorName,
                 DonorContact = dto.DonorContact,
+                ImageUrl = dto.ImageUrl,
                 Status = "Available",
                 CreatedAt = DateTime.UtcNow
             };
@@ -47,30 +48,50 @@ namespace Hackathon.Api.Services.Implementations
             return MapToDto(created);
         }
 
+        public async Task<FoodListingDto?> UpdateAsync(int id, UpdateFoodListingDto dto)
+        {
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity == null) return null;
+
+            entity.Title = dto.Title;
+            entity.Description = dto.Description;
+            entity.Category = dto.Category;
+            entity.Quantity = dto.Quantity;
+            entity.Unit = dto.Unit;
+            entity.PickupLocation = dto.PickupLocation;
+            entity.ExpiryDate = dto.ExpiryDate;
+            if (!string.IsNullOrEmpty(dto.ImageUrl))
+            {
+                entity.ImageUrl = dto.ImageUrl;
+            }
+            entity.UpdatedAt = DateTime.UtcNow;
+
+            await _repository.UpdateAsync(entity);
+            return MapToDto(entity);
+        }
+
+        public async Task<bool> CancelAsync(int id, string? reason)
+        {
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity == null) return false;
+
+            entity.Status = "Cancelled";
+            if (!string.IsNullOrWhiteSpace(reason))
+            {
+                entity.CancellationReason = reason;
+            }
+            entity.UpdatedAt = DateTime.UtcNow;
+
+            await _repository.UpdateAsync(entity);
+            return true;
+        }
+
         public async Task<bool> UpdateStatusAsync(int id, string status)
         {
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null) return false;
 
-            string normalizedTarget = status.Trim();
-            string currentStatus = entity.Status.Trim();
 
-            // Validate status transitions for M4 Collection rule: AVAILABLE -> RESERVED -> COLLECTED
-            if (normalizedTarget.Equals("Collected", StringComparison.OrdinalIgnoreCase) || 
-                normalizedTarget.Equals("Completed", StringComparison.OrdinalIgnoreCase))
-            {
-                if (currentStatus.Equals("Available", StringComparison.OrdinalIgnoreCase))
-                {
-                    throw new InvalidOperationException("An available listing must be reserved before it can be collected.");
-                }
-                if (currentStatus.Equals("Collected", StringComparison.OrdinalIgnoreCase) || 
-                    currentStatus.Equals("Completed", StringComparison.OrdinalIgnoreCase))
-                {
-                    throw new InvalidOperationException("This food listing has already been collected.");
-                }
-            }
-
-            entity.Status = normalizedTarget;
             await _repository.UpdateAsync(entity);
             return true;
         }
@@ -88,7 +109,10 @@ namespace Hackathon.Api.Services.Implementations
             Status = entity.Status,
             DonorName = entity.DonorName,
             DonorContact = entity.DonorContact,
-            CreatedAt = entity.CreatedAt
+            ImageUrl = entity.ImageUrl,
+            CancellationReason = entity.CancellationReason,
+            CreatedAt = entity.CreatedAt,
+            UpdatedAt = entity.UpdatedAt
         };
     }
 }

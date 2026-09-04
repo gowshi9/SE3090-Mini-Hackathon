@@ -40,13 +40,35 @@ namespace Hackathon.Api.Controllers
         }
 
         /// <summary>
-        /// Creates a new surplus food listing. (Member 1)
+        /// Creates a new surplus food listing. (Feature 1)
         /// </summary>
         [HttpPost]
         public async Task<ActionResult<FoodListingDto>> Create([FromBody] CreateFoodListingDto dto)
         {
             var created = await _foodListingService.CreateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        }
+
+        /// <summary>
+        /// Updates an existing food listing. (Feature 1)
+        /// </summary>
+        [HttpPut("{id}")]
+        public async Task<ActionResult<FoodListingDto>> Update(int id, [FromBody] UpdateFoodListingDto dto)
+        {
+            var updated = await _foodListingService.UpdateAsync(id, dto);
+            if (updated == null) return NotFound(new { message = $"Food listing {id} not found" });
+            return Ok(updated);
+        }
+
+        /// <summary>
+        /// Cancels a food listing (soft-cancellation with reason). (Feature 1)
+        /// </summary>
+        [HttpPatch("{id}/cancel")]
+        public async Task<IActionResult> Cancel(int id, [FromBody] CancelFoodListingDto? request)
+        {
+            var success = await _foodListingService.CancelAsync(id, request?.Reason);
+            if (!success) return NotFound(new { message = $"Food listing {id} not found" });
+            return NoContent();
         }
 
         /// <summary>
