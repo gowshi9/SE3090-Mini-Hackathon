@@ -16,7 +16,10 @@ namespace Hackathon.Api.Models.Entities
         public string Status { get; set; } = "Available"; // Available, Reserved, Completed, Expired
         public string DonorName { get; set; } = string.Empty;
         public string DonorContact { get; set; } = string.Empty;
+        public string? ImageUrl { get; set; }
+        public string? CancellationReason { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; }
 
         // Navigation property
         public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();

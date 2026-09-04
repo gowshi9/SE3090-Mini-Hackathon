@@ -13,6 +13,9 @@ namespace Hackathon.Api.Models.DTOs
         public string Status { get; set; } = string.Empty;
         public string DonorName { get; set; } = string.Empty;
         public string DonorContact { get; set; } = string.Empty;
+        public string? ImageUrl { get; set; }
+        public string? CancellationReason { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }
