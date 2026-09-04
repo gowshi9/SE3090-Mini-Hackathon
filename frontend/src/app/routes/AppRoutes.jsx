@@ -1,11 +1,14 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { FindFoodPage } from '../../features/find-food/pages/FindFoodPage';
 import { FoodDetailsPage } from '../../features/find-food/pages/FoodDetailsPage';
 import { PostFoodPage } from '../../features/post-food/pages/PostFoodPage';
+import { MyListingsPage } from '../../features/post-food/pages/MyListingsPage';
+import { EditFoodPage } from '../../features/post-food/pages/EditFoodPage';
 import { ReservationPage } from '../../features/reservation/pages/ReservationPage';
 import { DashboardPage } from '../../features/dashboard/pages/DashboardPage';
+
 
 /**
  * Main Application Routing Configuration.
@@ -16,9 +19,11 @@ export function AppRoutes() {
     <Routes>
       <Route path="/" element={<FindFoodPage />} />
       <Route path="/post-food" element={<PostFoodPage />} />
+      <Route path="/my-listings" element={<MyListingsPage />} />
+      <Route path="/edit-food/:id" element={<EditFoodPage />} />
       <Route path="/reserve/:id" element={<ReservationPage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
-      <Route path="/food/:id" element={<FoodDetailsPage />} />
+
     </Routes>
   );
 }
